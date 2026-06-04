@@ -40,7 +40,17 @@ public class SecurityConfig {
                                 "/auth/login"
                         ).permitAll()
 
-                        .anyRequest().authenticated()
+                        .requestMatchers("/educator/**")
+                        .hasRole("EDUCATOR")
+
+                        .requestMatchers("/student/**")
+                        .hasRole("STUDENT")
+
+                        .requestMatchers("/admin/**")
+                        .hasRole("ADMIN")
+
+                        .anyRequest()
+                        .authenticated()
                 )
 
                 .addFilterBefore(
